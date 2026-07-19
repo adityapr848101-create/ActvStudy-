@@ -65,7 +65,6 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
     <style>
         :root {
@@ -712,7 +711,6 @@
 };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const storage = firebase.storage();
 
         // ============ SUBJECTS DATA ============
         const subjects = {
@@ -725,6 +723,7 @@
         };
 
         let currentSubjectKey = '';
+        let currentChapterIndex = -1;
 
         // ============ NAVIGATION ============
         function goTo(pageId) {
@@ -745,34 +744,41 @@
 
             const numClass = 'num-' + data.color;
             const list = document.getElementById('chapterList');
-            const snapshot = await db.collection('files')
-                .where('subjectKey', '==', subjectKey).get();
             
-            const chapterFileCount = {};
-            snapshot.forEach(doc => {
-                const d = doc.data();
-                const key = d.subjectKey + '-' + d.chapterIndex;
-                if (!chapterFileCount[key]) chapterFileCount[key] = 0;
-                chapterFileCount[key]++;
-            });
+            try {
+                const snapshot = await db.collection('files')
+                    .where('subjectKey', '==', subjectKey).get();
+                
+                const chapterFileCount = {};
+                snapshot.forEach(doc => {
+                    const d = doc.data();
+                    const key = d.subjectKey + '-' + d.chapterIndex;
+                    if (!chapterFileCount[key]) chapterFileCount[key] = 0;
+                    chapterFileCount[key]++;
+                });
 
-            list.innerHTML = data.chapters.map((chapter, index) => {
-                const key = subjectKey + '-' + index;
-                const count = chapterFileCount[key] || 0;
-                const badge = count > 0 ? `<span class="file-count-badge">📁 ${count} file${count>1?'s':''}</span>` : '';
-                return `
-                <a href="#" class="chapter-item" onclick="showFiles('${subjectKey}', ${index})">
-                    <div class="chapter-num ${numClass}">${String(index+1).padStart(2,'0')}</div>
-                    <div class="chapter-info"><div class="chapter-name">${chapter} ${badge}</div></div>
-                    <span class="chapter-arrow">→</span>
-                </a>`;
-            }).join('');
+                list.innerHTML = data.chapters.map((chapter, index) => {
+                    const key = subjectKey + '-' + index;
+                    const count = chapterFileCount[key] || 0;
+                    const badge = count > 0 ? `<span class="file-count-badge">📁 ${count} file${count>1?'s':''}</span>` : '';
+                    return `
+                    <a href="#" class="chapter-item" onclick="showFiles('${subjectKey}', ${index})">
+                        <div class="chapter-num ${numClass}">${String(index+1).padStart(2,'0')}</div>
+                        <div class="chapter-info"><div class="chapter-name">${chapter} ${badge}</div></div>
+                        <span class="chapter-arrow">→</span>
+                    </a>`;
+                }).join('');
+            } catch (err) {
+                console.error('Error loading chapters:', err);
+                list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">❌ Failed to load chapters. Please try again.</div>';
+            }
         }
 
         function goBackToChapters() { if (currentSubjectKey) showChapters(currentSubjectKey); }
 
         // ============ SHOW FILES (MULTIPLE) ============
         async function showFiles(subjectKey, chapterIndex) {
+            currentChapterIndex = chapterIndex;
             const data = subjects[subjectKey];
             const chapterName = data.chapters[chapterIndex];
             document.getElementById('breadcrumb').innerHTML = `${data.subject} <span>→</span> <span>${chapterName}</span>`;
@@ -780,103 +786,134 @@
             document.getElementById('filesContainer').innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p class="loading-text">Loading files...</p></div>';
             goTo('filesPage');
 
-            const snapshot = await db.collection('files')
-                .where('subjectKey', '==', subjectKey)
-                .where('chapterIndex', '==', chapterIndex)
-                .get();
+            try {
+                const snapshot = await db.collection('files')
+                    .where('subjectKey', '==', subjectKey)
+                    .where('chapterIndex', '==', chapterIndex)
+                    .get();
 
-            const htmlFiles = [];
-            const pdfFiles = [];
+                const htmlFiles = [];
+                const pdfFiles = [];
 
-            snapshot.forEach(doc => {
-                const f = doc.data();
-                f.docId = doc.id;
-                if (f.fileType === 'html') htmlFiles.push(f);
-                else pdfFiles.push(f);
-            });
-
-            const sortFn = (a, b) => (b.uploadedAt?.seconds || 0) - (a.uploadedAt?.seconds || 0);
-            htmlFiles.sort(sortFn);
-            pdfFiles.sort(sortFn);
-
-            let html = '';
-
-            // Interactive Sessions Section
-            html += `<div class="files-section"><h3>🟢 Interactive Sessions</h3><div class="files-list">`;
-            if (htmlFiles.length > 0) {
-                htmlFiles.forEach(f => {
-                    const displayName = removeExtension(f.name);
-                    html += `
-                    <a href="#" class="file-card html-card" onclick="openHTMLFullscreen('${f.docId}')">
-                        <span class="file-icon">🟢</span>
-                        <div class="file-info"><div class="file-title">${displayName}</div><div class="file-meta"><span>${formatSize(f.size)}</span></div></div>
-                        <span class="file-badge badge-html">▶ RUN</span>
-                    </a>`;
+                snapshot.forEach(doc => {
+                    const f = doc.data();
+                    f.docId = doc.id;
+                    if (f.fileType === 'html') htmlFiles.push(f);
+                    else pdfFiles.push(f);
                 });
-            } else {
-                html += `<div class="no-files-msg">No interactive sessions uploaded yet</div>`;
-            }
-            html += `</div></div>`;
 
-            // PDF Notes Section
-            html += `<div class="files-section"><h3>📕 PDF Notes</h3><div class="files-list">`;
-            if (pdfFiles.length > 0) {
-                pdfFiles.forEach(f => {
-                    const displayName = removeExtension(f.name);
-                    html += `
-                    <a href="#" class="file-card pdf-card" onclick="openPDFFullscreen('${f.docId}')">
-                        <span class="file-icon">📕</span>
-                        <div class="file-info"><div class="file-title">${displayName}</div><div class="file-meta"><span>${formatSize(f.size)}</span></div></div>
-                        <span class="file-badge badge-pdf">▶ VIEW</span>
-                    </a>`;
-                });
-            } else {
-                html += `<div class="no-files-msg">No PDF notes uploaded yet</div>`;
-            }
-            html += `</div></div>`;
+                const sortFn = (a, b) => (b.uploadedAt?.seconds || 0) - (a.uploadedAt?.seconds || 0);
+                htmlFiles.sort(sortFn);
+                pdfFiles.sort(sortFn);
 
-            document.getElementById('filesContainer').innerHTML = html;
+                let html = '';
+
+                // Interactive Sessions Section
+                html += `<div class="files-section"><h3>🟢 Interactive Sessions</h3><div class="files-list">`;
+                if (htmlFiles.length > 0) {
+                    htmlFiles.forEach(f => {
+                        const displayName = removeExtension(f.name);
+                        html += `
+                        <a href="#" class="file-card html-card" onclick="openHTMLFullscreen('${f.docId}')">
+                            <span class="file-icon">🟢</span>
+                            <div class="file-info"><div class="file-title">${displayName}</div><div class="file-meta"><span>${formatSize(f.size)}</span></div></div>
+                            <span class="file-badge badge-html">▶ RUN</span>
+                        </a>`;
+                    });
+                } else {
+                    html += `<div class="no-files-msg">No interactive sessions uploaded yet</div>`;
+                }
+                html += `</div></div>`;
+
+                // PDF Notes Section
+                html += `<div class="files-section"><h3>📕 PDF Notes</h3><div class="files-list">`;
+                if (pdfFiles.length > 0) {
+                    pdfFiles.forEach(f => {
+                        const displayName = removeExtension(f.name);
+                        html += `
+                        <a href="#" class="file-card pdf-card" onclick="openPDFFullscreen('${f.docId}')">
+                            <span class="file-icon">📕</span>
+                            <div class="file-info"><div class="file-title">${displayName}</div><div class="file-meta"><span>${formatSize(f.size)}</span></div></div>
+                            <span class="file-badge badge-pdf">▶ VIEW</span>
+                        </a>`;
+                    });
+                } else {
+                    html += `<div class="no-files-msg">No PDF notes uploaded yet</div>`;
+                }
+                html += `</div></div>`;
+
+                document.getElementById('filesContainer').innerHTML = html;
+            } catch (err) {
+                console.error('Error loading files:', err);
+                document.getElementById('filesContainer').innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">❌ Failed to load files. Please try again.</div>';
+            }
         }
 
-        // ============ OPEN HTML FULL SCREEN ============
+        // ============ OPEN HTML FULL SCREEN (DIRECT FROM FIRESTORE) ============
         async function openHTMLFullscreen(docId) {
             try {
                 const doc = await db.collection('files').doc(docId).get();
-                if (!doc.exists) return;
+                if (!doc.exists) {
+                    alert('❌ File not found!');
+                    return;
+                }
                 const file = doc.data();
                 
-                // Fetch the HTML content
-                const response = await fetch(file.downloadURL);
-                const htmlContent = await response.text();
+                // ⚡ DIRECT: fileContent contains the Base64 string
+                if (!file.fileContent) {
+                    alert('❌ File content not available!');
+                    return;
+                }
                 
-                // Create blob and open in new tab full screen
-                const blob = new Blob([htmlContent], { type: 'text/html' });
+                // Create a Blob from the Base64 data
+                const base64Response = await fetch(file.fileContent);
+                const blob = await base64Response.blob();
+                
+                // Create object URL and open in new tab
                 const blobUrl = URL.createObjectURL(blob);
                 const newTab = window.open(blobUrl, '_blank');
                 
                 if (newTab) {
                     newTab.addEventListener('load', () => {
-                        setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+                        setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
                     });
+                } else {
+                    // If popup blocked, download directly
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = file.name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
                 }
             } catch (err) {
                 console.error('Error opening HTML:', err);
-                window.open(file.downloadURL, '_blank');
+                alert('❌ Failed to open file: ' + err.message);
             }
         }
 
-        // ============ OPEN PDF FULL SCREEN ============
+        // ============ OPEN PDF FULL SCREEN (DIRECT FROM FIRESTORE) ============
         async function openPDFFullscreen(docId) {
             try {
                 const doc = await db.collection('files').doc(docId).get();
-                if (!doc.exists) return;
+                if (!doc.exists) {
+                    alert('❌ File not found!');
+                    return;
+                }
                 const file = doc.data();
                 
-                // PDF directly opens in browser's built-in PDF viewer (full screen)
-                // Browser's PDF viewer has built-in download button
-                window.open(file.downloadURL, '_blank');
+                // ⚡ DIRECT: fileContent contains the Base64 string
+                if (!file.fileContent) {
+                    alert('❌ File content not available!');
+                    return;
+                }
+                
+                // PDF directly opens in browser's built-in PDF viewer
+                window.open(file.fileContent, '_blank');
             } catch (err) {
                 console.error('Error opening PDF:', err);
+                alert('❌ Failed to open file: ' + err.message);
             }
         }
 
@@ -895,8 +932,9 @@
 
         console.log('🚀 Actv Study Ready!');
         console.log('🎯 NEET | JEE | CBSE Boards 2027');
-        console.log('🟢 Interactive Sessions → Full Screen New Tab');
-        console.log('📕 PDF Notes → Full Screen View + Download');
+        console.log('📁 Files stored directly in Firestore (Base64)');
+        console.log('🟢 HTML → Blob URL → New Tab');
+        console.log('📕 PDF → Direct Base64 URL → New Tab');
     </script>
 </body>
 </html>
