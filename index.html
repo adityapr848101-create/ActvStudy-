@@ -776,7 +776,7 @@
 
         function goBackToChapters() { if (currentSubjectKey) showChapters(currentSubjectKey); }
 
-        // ============ SHOW FILES (MULTIPLE) ============
+        // ============ SHOW FILES ============
         async function showFiles(subjectKey, chapterIndex) {
             currentChapterIndex = chapterIndex;
             const data = subjects[subjectKey];
@@ -849,7 +849,7 @@
             }
         }
 
-        // ============ OPEN HTML FULL SCREEN (DIRECT FROM FIRESTORE) ============
+        // ============ OPEN HTML FULLSCREEN (NO DOWNLOAD) ============
         async function openHTMLFullscreen(docId) {
             try {
                 const doc = await db.collection('files').doc(docId).get();
@@ -859,13 +859,12 @@
                 }
                 const file = doc.data();
                 
-                // ⚡ DIRECT: fileContent contains the Base64 string
                 if (!file.fileContent) {
                     alert('❌ File content not available!');
                     return;
                 }
                 
-                // Create a Blob from the Base64 data
+                // Convert Base64 to Blob
                 const base64Response = await fetch(file.fileContent);
                 const blob = await base64Response.blob();
                 
@@ -878,14 +877,9 @@
                         setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
                     });
                 } else {
-                    // If popup blocked, download directly
-                    const link = document.createElement('a');
-                    link.href = blobUrl;
-                    link.download = file.name;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+                    // If popup blocked, show message
+                    alert('⚠️ Please allow popups to run interactive sessions!');
+                    URL.revokeObjectURL(blobUrl);
                 }
             } catch (err) {
                 console.error('Error opening HTML:', err);
@@ -893,7 +887,7 @@
             }
         }
 
-        // ============ OPEN PDF FULL SCREEN (DIRECT FROM FIRESTORE) ============
+        // ============ OPEN PDF FULLSCREEN ============
         async function openPDFFullscreen(docId) {
             try {
                 const doc = await db.collection('files').doc(docId).get();
@@ -903,7 +897,6 @@
                 }
                 const file = doc.data();
                 
-                // ⚡ DIRECT: fileContent contains the Base64 string
                 if (!file.fileContent) {
                     alert('❌ File content not available!');
                     return;
@@ -930,11 +923,34 @@
             return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
         }
 
+        // ============ PREVENT HTML DOWNLOAD ============
+        // Block right-click on HTML file cards
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.closest('.file-card.html-card')) {
+                e.preventDefault();
+                alert('❌ Download not allowed! Interactive sessions can only be run.');
+            }
+        });
+
+        // Block Ctrl+S, Ctrl+U, F12
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+S or Ctrl+U
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+                alert('❌ Download not allowed!');
+            }
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                alert('❌ Developer tools disabled!');
+            }
+        });
+
         console.log('🚀 Actv Study Ready!');
         console.log('🎯 NEET | JEE | CBSE Boards 2027');
         console.log('📁 Files stored directly in Firestore (Base64)');
-        console.log('🟢 HTML → Blob URL → New Tab');
-        console.log('📕 PDF → Direct Base64 URL → New Tab');
+        console.log('🟢 HTML → RUN only (NO DOWNLOAD)');
+        console.log('📕 PDF → VIEW with download option');
     </script>
 </body>
 </html>
