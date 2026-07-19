@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ============ SEO META TAGS ============ -->
+    <title>Actv Study - Free NEET, JEE & Board Study Materials 2027 | 11th 12th Physics Chemistry Biology</title>
+    <meta name="description" content="Actv Study provides free interactive study sessions and PDF notes for NEET 2027, JEE Main, JEE Advanced, and CBSE Board exams. Class 11th & 12th Physics, Chemistry, Biology chapter-wise materials with full-screen interactive learning.">
+    <meta name="keywords" content="Actv Study, NEET study material 2027, JEE notes 2027, CBSE notes, 11th physics notes, 12th chemistry, biology notes, NEET preparation, JEE Main 2027, board exam notes, free study material, interactive sessions, NCERT notes, NEET biology, organic chemistry notes, physics wallah, unacademy">
+    <meta name="author" content="Actv Study">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="3 days">
+    <meta name="rating" content="general">
+    <meta name="target" content="NEET, JEE, CBSE Students 2027">
+    <meta name="theme-color" content="#6c63ff">
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Actv Study - Free NEET, JEE & Board Study Materials 2027">
+    <meta property="og:description" content="Access free interactive study sessions and PDF notes for Class 11th & 12th Physics, Chemistry, Biology. Best resource for NEET, JEE, and CBSE Board exams 2027.">
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta property="og:site_name" content="Actv Study">
+    <meta property="og:locale" content="en_IN">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Actv Study - Free NEET, JEE & Board Materials 2027">
+    <meta name="twitter:description" content="Best free interactive study sessions and PDF notes for NEET, JEE, CBSE 2027. Physics, Chemistry, Biology for 11th & 12th.">
+    <meta name="twitter:image" content="https://your-domain.com/og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://your-domain.com">
+    
+    <!-- Schema Markup for Google -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Actv Study",
+        "description": "Free interactive study sessions and PDF notes for NEET, JEE Main, JEE Advanced, and CBSE Board exams 2027. Class 11th & 12th Physics, Chemistry, Biology.",
+        "url": "https://your-domain.com",
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "student"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR",
+            "description": "Free educational resources for 2027 exam preparation"
+        }
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+
+    <style>
+        :root {
+            --bg: #06060f;
+            --bg-secondary: #0a0a18;
+            --card-bg: rgba(16, 16, 35, 0.7);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --card-hover: rgba(20, 20, 45, 0.9);
+            --primary: #6c63ff;
+            --primary-glow: rgba(108, 99, 255, 0.4);
+            --secondary: #06b6d4;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.3);
+            --accent-blue: #3b82f6;
+            --accent-blue-glow: rgba(59, 130, 246, 0.3);
+            --accent-purple: #8b5cf6;
+            --accent-purple-glow: rgba(139, 92, 246, 0.3);
+            --gold: #f59e0b;
+            --gold-glow: rgba(245, 158, 11, 0.4);
+            --text: #e8ecf1;
+            --text-secondary: #b0b8c4;
+            --muted: #6b7280;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.03);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .bg-orb.orb-1 { width: 600px; height: 600px; background: var(--primary); top: -200px; left: -200px; animation-delay: 0s; }
+        .bg-orb.orb-2 { width: 500px; height: 500px; background: var(--secondary); bottom: -150px; right: -150px; animation-delay: -7s; }
+        .bg-orb.orb-3 { width: 400px; height: 400px; background: var(--accent-green); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -14s; }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 40px) scale(0.9); }
+            75% { transform: translate(-60px, -20px) scale(1.05); }
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .app { position: relative; z-index: 1; min-height: 100vh; }
+
+        .announcement-bar {
+            background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(6,182,212,0.1));
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+        .announcement-bar .pulse-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+            50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+        .header .icon-wrapper { display: inline-block; position: relative; margin-bottom: 15px; }
+        .header .main-icon {
+            font-size: 5rem;
+            display: block;
+            animation: floatIcon 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(108, 99, 255, 0.3));
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .header h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+        .header h1 .gradient-text {
+            background: linear-gradient(135deg, #6c63ff 0%, #06b6d4 40%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .header .exam-badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+        .exam-badge.neet {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+        .exam-badge.jee {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+        .exam-badge.boards {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border-color: rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+        }
+        .exam-badge:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+
+        .header .divider-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent-green));
+            margin: 20px auto 0;
+            border-radius: 10px;
+        }
+
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 15px 20px;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .stat-item { text-align: center; }
+        .stat-item .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-item .stat-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .page {
+            display: none;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeSlideIn 0.5s ease;
+        }
+        .page.active { display: block; }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title { text-align: center; margin-bottom: 25px; }
+        .section-title h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
+        .section-title p { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-bottom: 20px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+        }
+        .back-btn:hover {
+            border-color: var(--primary);
+            background: var(--card-hover);
+            transform: translateX(-4px);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 1000px) { .subjects-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .subjects-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; } }
+
+        .subject-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-xl);
+            padding: 35px 25px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+        .subject-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .subject-card .card-glow {
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .subject-card:hover .card-glow { opacity: 0.1; }
+        .subject-card .icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 12px;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+        .subject-card:hover .icon { transform: scale(1.15) rotate(-5deg); }
+        .subject-card .class-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .subject-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            position: relative;
+            z-index: 1;
+        }
+        .subject-card .chapter-count {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+        }
+        .subject-card .exam-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-bio { border-color: rgba(16, 185, 129, 0.2); }
+        .card-bio .card-glow { background: radial-gradient(circle, rgba(16,185,129,0.4) 0%, transparent 70%); }
+        .card-bio:hover { border-color: rgba(16, 185, 129, 0.5); box-shadow: 0 20px 50px var(--accent-green-glow); }
+        .card-bio .class-badge { background: rgba(16,185,129,0.15); color: #34d399; }
+        .card-bio .exam-tag { background: rgba(16,185,129,0.1); color: #6ee7b7; }
+
+        .card-chem { border-color: rgba(6, 182, 212, 0.2); }
+        .card-chem .card-glow { background: radial-gradient(circle, rgba(6,182,212,0.4) 0%, transparent 70%); }
+        .card-chem:hover { border-color: rgba(6, 182, 212, 0.5); box-shadow: 0 20px 50px rgba(6,182,212,0.2); }
+        .card-chem .class-badge { background: rgba(6,182,212,0.15); color: #22d3ee; }
+        .card-chem .exam-tag { background: rgba(6,182,212,0.1); color: #67e8f9; }
+
+        .card-phy { border-color: rgba(108, 99, 255, 0.2); }
+        .card-phy .card-glow { background: radial-gradient(circle, rgba(108,99,255,0.4) 0%, transparent 70%); }
+        .card-phy:hover { border-color: rgba(108, 99, 255, 0.5); box-shadow: 0 20px 50px var(--primary-glow); }
+        .card-phy .class-badge { background: rgba(108,99,255,0.15); color: #a78bfa; }
+        .card-phy .exam-tag { background: rgba(108,99,255,0.1); color: #c4b5fd; }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+        .page-header .subject-icon { font-size: 2.8rem; filter: drop-shadow(0 0 15px rgba(108,99,255,0.3)); }
+        .page-header h2 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.3px; }
+
+        .chapter-list { display: flex; flex-direction: column; gap: 10px; }
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 22px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text);
+            backdrop-filter: blur(10px);
+        }
+        .chapter-item:hover {
+            border-color: var(--primary);
+            background: var(--card-hover);
+            transform: translateX(6px);
+            box-shadow: var(--shadow-md), 0 0 25px var(--primary-glow);
+        }
+        .chapter-num {
+            width: 44px; height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            flex-shrink: 0;
+            letter-spacing: -0.5px;
+        }
+        .num-bio { background: rgba(16,185,129,0.15); color: #34d399; }
+        .num-chem { background: rgba(6,182,212,0.15); color: #22d3ee; }
+        .num-phy { background: rgba(108,99,255,0.15); color: #a78bfa; }
+        .chapter-info { flex: 1; }
+        .chapter-name { font-weight: 700; font-size: 0.95rem; }
+        .file-count-badge {
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 50px;
+            background: rgba(16,185,129,0.15);
+            color: #34d399;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+        .chapter-arrow { color: var(--muted); transition: var(--transition); font-size: 1.1rem; }
+        .chapter-item:hover .chapter-arrow { color: var(--primary); transform: translateX(4px); }
+
+        .breadcrumb {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .breadcrumb span { color: var(--text); font-weight: 600; }
+
+        .files-section { margin-bottom: 20px; }
+        .files-section h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .files-list { display: flex; flex-direction: column; gap: 10px; }
+        .file-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .file-card::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0;
+            width: 3px; height: 100%;
+            transition: var(--transition);
+        }
+        .file-card:hover {
+            border-color: var(--gold);
+            background: var(--card-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md), 0 0 20px var(--gold-glow);
+        }
+        .file-card.html-card::after { background: linear-gradient(180deg, #f59e0b, #f97316); }
+        .file-card.pdf-card::after { background: linear-gradient(180deg, #ef4444, #dc2626); }
+        .file-card .file-icon { font-size: 2.2rem; flex-shrink: 0; }
+        .file-card .file-info { flex: 1; min-width: 0; }
+        .file-card .file-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: -0.2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .file-card .file-meta {
+            font-size: 0.7rem;
+            color: var(--muted);
+            margin-top: 2px;
+            display: flex;
+            gap: 10px;
+        }
+        .file-badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+        .badge-html { background: rgba(245,158,11,0.15); color: #fbbf24; }
+        .badge-pdf { background: rgba(239,68,68,0.15); color: #f87171; }
+        .file-card.no-file {
+            opacity: 0.35;
+            cursor: default;
+            filter: grayscale(0.5);
+        }
+        .file-card.no-file:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: var(--border);
+            background: var(--card-bg);
+        }
+        .no-files-msg {
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        .footer p { color: var(--muted); font-size: 0.8rem; }
+        .footer .footer-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .footer .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.78rem;
+            transition: var(--transition);
+        }
+        .footer .footer-links a:hover { color: var(--primary); }
+
+        .loading-spinner { text-align: center; padding: 50px; }
+        .spinner {
+            width: 40px; height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { color: var(--muted); font-size: 0.9rem; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .header .main-icon { font-size: 3.5rem; }
+            .subject-card { padding: 25px 15px 20px; }
+            .subject-card .icon { font-size: 3rem; }
+            .subject-card h3 { font-size: 1.1rem; }
+            .stats-strip { gap: 15px; }
+            .stat-item .stat-number { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="grid-pattern"></div>
+
+    <div class="app">
+        <div class="announcement-bar">
+            <span class="pulse-dot"></span>
+            <strong>Actv Study</strong> — Free Interactive Sessions & PDF Notes for NEET, JEE & CBSE Boards 2027
+        </div>
+
+        <div class="header">
+            <div class="icon-wrapper"><span class="main-icon">📚</span></div>
+            <h1><span class="gradient-text">Actv Study</span></h1>
+            <p class="tagline">Your Ultimate Exam Preparation Hub for 2027</p>
+            <div class="exam-badges">
+                <span class="exam-badge neet">🎯 NEET 2027</span>
+                <span class="exam-badge jee">⚡ JEE Main & Advanced</span>
+                <span class="exam-badge boards">📋 CBSE Boards</span>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="stats-strip">
+            <div class="stat-item"><div class="stat-number">6</div><div class="stat-label">Subjects</div></div>
+            <div class="stat-item"><div class="stat-number">97</div><div class="stat-label">Chapters</div></div>
+            <div class="stat-item"><div class="stat-number">FREE</div><div class="stat-label">Forever</div></div>
+            <div class="stat-item"><div class="stat-number">2027</div><div class="stat-label">Target</div></div>
+        </div>
+
+        <!-- HOME PAGE -->
+        <div class="page active" id="homePage">
+            <div class="section-title">
+                <h2>Select Your Subject</h2>
+                <p>Click on any subject to explore chapters & study materials</p>
+            </div>
+            <div class="subjects-grid">
+                <a href="#" class="subject-card card-bio" onclick="showChapters('11th-Biology')"><div class="card-glow"></div><span class="icon">🧬</span><span class="class-badge">Class 11th</span><h3>Biology</h3><p class="chapter-count">22 Chapters</p><span class="exam-tag">🎯 NEET</span></a>
+                <a href="#" class="subject-card card-bio" onclick="showChapters('12th-Biology')"><div class="card-glow"></div><span class="icon">🔬</span><span class="class-badge">Class 12th</span><h3>Biology</h3><p class="chapter-count">16 Chapters</p><span class="exam-tag">🎯 NEET</span></a>
+                <a href="#" class="subject-card card-chem" onclick="showChapters('11th-Chemistry')"><div class="card-glow"></div><span class="icon">⚗️</span><span class="class-badge">Class 11th</span><h3>Chemistry</h3><p class="chapter-count">14 Chapters</p><span class="exam-tag">⚡ JEE + 🎯 NEET</span></a>
+                <a href="#" class="subject-card card-chem" onclick="showChapters('12th-Chemistry')"><div class="card-glow"></div><span class="icon">🧪</span><span class="class-badge">Class 12th</span><h3>Chemistry</h3><p class="chapter-count">16 Chapters</p><span class="exam-tag">⚡ JEE + 🎯 NEET</span></a>
+                <a href="#" class="subject-card card-phy" onclick="showChapters('11th-Physics')"><div class="card-glow"></div><span class="icon">⚡</span><span class="class-badge">Class 11th</span><h3>Physics</h3><p class="chapter-count">15 Chapters</p><span class="exam-tag">⚡ JEE + 🎯 NEET</span></a>
+                <a href="#" class="subject-card card-phy" onclick="showChapters('12th-Physics')"><div class="card-glow"></div><span class="icon">🔭</span><span class="class-badge">Class 12th</span><h3>Physics</h3><p class="chapter-count">14 Chapters</p><span class="exam-tag">⚡ JEE + 🎯 NEET</span></a>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2026 Actv Study. Made for 2027 Exam Aspirants. All study materials for educational purposes only.</p>
+                <div class="footer-links">
+                    <a href="#">About</a><a href="#">Contact</a><a href="#">Privacy Policy</a><a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAPTERS PAGE -->
+        <div class="page" id="chapterPage">
+            <a href="#" class="back-btn" onclick="goHome()">← Back to Home</a>
+            <div class="page-header"><span class="subject-icon" id="chapterIcon"></span><h2 id="chapterTitle"></h2></div>
+            <div class="chapter-list" id="chapterList"><div class="loading-spinner"><div class="spinner"></div><p class="loading-text">Loading chapters...</p></div></div>
+        </div>
+
+        <!-- FILES PAGE -->
+        <div class="page" id="filesPage">
+            <a href="#" class="back-btn" onclick="goBackToChapters()">← Back to Chapters</a>
+            <div class="breadcrumb" id="breadcrumb"></div>
+            <div class="page-header"><span class="subject-icon">📖</span><h2 id="filesTitle"></h2></div>
+            <div id="filesContainer"><div class="loading-spinner"><div class="spinner"></div><p class="loading-text">Loading files...</p></div></div>
+        </div>
+    </div>
+
+    <script>
+        // ============ FIREBASE CONFIG ============
+        const firebaseConfig = {
+  apiKey: "AIzaSyC3qm5t8XxpfficF88dfg3hBfCiBXyg3NA",
+  authDomain: "actv-study-47dff.firebaseapp.com",
+  projectId: "actv-study-47dff",
+  storageBucket: "actv-study-47dff.firebasestorage.app",
+  messagingSenderId: "552961851834",
+  appId: "1:552961851834:web:6a433465fb6f2f58ea9d83",
+  measurementId: "G-DC68LCQREH"
+};
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // ============ SUBJECTS DATA ============
+        const subjects = {
+            '11th-Biology': { class: '11th', subject: 'Biology', icon: '🧬', color: 'bio', chapters: ['The Living World','Biological Classification','Plant Kingdom','Animal Kingdom','Morphology of Flowering Plants','Anatomy of Flowering Plants','Structural Organisation in Animals','Cell: The Unit of Life','Biomolecules','Cell Cycle and Cell Division','Photosynthesis in Higher Plants','Respiration in Plants','Plant Growth and Development','Breathing and Exchange of Gases','Body Fluids and Circulation','Excretory Products and Elimination','Locomotion and Movement','Neural Control and Coordination','Chemical Coordination and Integration','Digestion and Absorption','Mineral Nutrition','Transport in Plants'] },
+            '12th-Biology': { class: '12th', subject: 'Biology', icon: '🔬', color: 'bio', chapters: ['Reproduction in Organisms','Sexual Reproduction in Flowering Plants','Human Reproduction','Reproductive Health','Principles of Inheritance and Variation','Molecular Basis of Inheritance','Evolution','Human Health and Disease','Strategies for Enhancement in Food Production','Microbes in Human Welfare','Biotechnology: Principles and Processes','Biotechnology and Its Applications','Organisms and Populations','Ecosystem','Biodiversity and Conservation','Environmental Issues'] },
+            '11th-Chemistry': { class: '11th', subject: 'Chemistry', icon: '⚗️', color: 'chem', chapters: ['Some Basic Concepts of Chemistry','Structure of Atom','Classification of Elements and Periodicity','Chemical Bonding and Molecular Structure','States of Matter','Thermodynamics','Equilibrium','Redox Reactions','Hydrogen','The s-Block Elements','The p-Block Elements','Organic Chemistry - Basic Principles','Hydrocarbons','Environmental Chemistry'] },
+            '12th-Chemistry': { class: '12th', subject: 'Chemistry', icon: '🧪', color: 'chem', chapters: ['The Solid State','Solutions','Electrochemistry','Chemical Kinetics','Surface Chemistry','General Principles of Metallurgy','The p-Block Elements','The d and f Block Elements','Coordination Compounds','Haloalkanes and Haloarenes','Alcohols, Phenols and Ethers','Aldehydes, Ketones and Carboxylic Acids','Amines','Biomolecules','Polymers','Chemistry in Everyday Life'] },
+            '11th-Physics': { class: '11th', subject: 'Physics', icon: '⚡', color: 'phy', chapters: ['Physical World','Units and Measurements','Motion in a Straight Line','Motion in a Plane','Laws of Motion','Work, Energy and Power','System of Particles and Rotational Motion','Gravitation','Mechanical Properties of Solids','Mechanical Properties of Fluids','Thermal Properties of Matter','Thermodynamics','Kinetic Theory','Oscillations','Waves'] },
+            '12th-Physics': { class: '12th', subject: 'Physics', icon: '🔭', color: 'phy', chapters: ['Electric Charges and Fields','Electrostatic Potential and Capacitance','Current Electricity','Moving Charges and Magnetism','Magnetism and Matter','Electromagnetic Induction','Alternating Current','Electromagnetic Waves','Ray Optics and Optical Instruments','Wave Optics','Dual Nature of Radiation and Matter','Atoms','Nuclei','Semiconductor Electronics'] }
+        };
+
+        let currentSubjectKey = '';
+
+        // ============ NAVIGATION ============
+        function goTo(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function goHome() { goTo('homePage'); }
+
+        // ============ SHOW CHAPTERS ============
+        async function showChapters(subjectKey) {
+            currentSubjectKey = subjectKey;
+            const data = subjects[subjectKey];
+            document.getElementById('chapterIcon').textContent = data.icon;
+            document.getElementById('chapterTitle').textContent = `Class ${data.class} - ${data.subject}`;
+            document.getElementById('chapterList').innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p class="loading-text">Loading chapters...</p></div>';
+            goTo('chapterPage');
+
+            const numClass = 'num-' + data.color;
+            const list = document.getElementById('chapterList');
+            const snapshot = await db.collection('files')
+                .where('subjectKey', '==', subjectKey).get();
+            
+            const chapterFileCount = {};
+            snapshot.forEach(doc => {
+                const d = doc.data();
+                const key = d.subjectKey + '-' + d.chapterIndex;
+                if (!chapterFileCount[key]) chapterFileCount[key] = 0;
+                chapterFileCount[key]++;
+            });
+
+            list.innerHTML = data.chapters.map((chapter, index) => {
+                const key = subjectKey + '-' + index;
+                const count = chapterFileCount[key] || 0;
+                const badge = count > 0 ? `<span class="file-count-badge">📁 ${count} file${count>1?'s':''}</span>` : '';
+                return `
+                <a href="#" class="chapter-item" onclick="showFiles('${subjectKey}', ${index})">
+                    <div class="chapter-num ${numClass}">${String(index+1).padStart(2,'0')}</div>
+                    <div class="chapter-info"><div class="chapter-name">${chapter} ${badge}</div></div>
+                    <span class="chapter-arrow">→</span>
+                </a>`;
+            }).join('');
+        }
+
+        function goBackToChapters() { if (currentSubjectKey) showChapters(currentSubjectKey); }
+
+        // ============ SHOW FILES (MULTIPLE) ============
+        async function showFiles(subjectKey, chapterIndex) {
+            const data = subjects[subjectKey];
+            const chapterName = data.chapters[chapterIndex];
+            document.getElementById('breadcrumb').innerHTML = `${data.subject} <span>→</span> <span>${chapterName}</span>`;
+            document.getElementById('filesTitle').textContent = chapterName;
+            document.getElementById('filesContainer').innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p class="loading-text">Loading files...</p></div>';
+            goTo('filesPage');
+
+            const snapshot = await db.collection('files')
+                .where('subjectKey', '==', subjectKey)
+                .where('chapterIndex', '==', chapterIndex)
+                .get();
+
+            const htmlFiles = [];
+            const pdfFiles = [];
+
+            snapshot.forEach(doc => {
+                const f = doc.data();
+                f.docId = doc.id;
+                if (f.fileType === 'html') htmlFiles.push(f);
+                else pdfFiles.push(f);
+            });
+
+            const sortFn = (a, b) => (b.uploadedAt?.seconds || 0) - (a.uploadedAt?.seconds || 0);
+            htmlFiles.sort(sortFn);
+            pdfFiles.sort(sortFn);
+
+            let html = '';
+
+            // Interactive Sessions Section
+            html += `<div class="files-section"><h3>🟢 Interactive Sessions</h3><div class="files-list">`;
+            if (htmlFiles.length > 0) {
+                htmlFiles.forEach(f => {
+                    const displayName = removeExtension(f.name);
+                    html += `
+                    <a href="#" class="file-card html-card" onclick="openHTMLFullscreen('${f.docId}')">
+                        <span class="file-icon">🟢</span>
+                        <div class="file-info"><div class="file-title">${displayName}</div><div class="file-meta"><span>${formatSize(f.size)}</span></div></div>
+                        <span class="file-badge badge-html">▶ RUN</span>
+                    </a>`;
+                });
+            } else {
+                html += `<div class="no-files-msg">No interactive sessions uploaded yet</div>`;
+            }
+            html += `</div></div>`;
+
+            // PDF Notes Section
+            html += `<div class="files-section"><h3>📕 PDF Notes</h3><div class="files-list">`;
+            if (pdfFiles.length > 0) {
+                pdfFiles.forEach(f => {
+                    const displayName = removeExtension(f.name);
+                    html += `
+                    <a href="#" class="file-card pdf-card" onclick="openPDFFullscreen('${f.docId}')">
+                        <span class="file-icon">📕</span>
+                        <div class="file-info"><div class="file-title">${displayName}</div><div class="file-meta"><span>${formatSize(f.size)}</span></div></div>
+                        <span class="file-badge badge-pdf">▶ VIEW</span>
+                    </a>`;
+                });
+            } else {
+                html += `<div class="no-files-msg">No PDF notes uploaded yet</div>`;
+            }
+            html += `</div></div>`;
+
+            document.getElementById('filesContainer').innerHTML = html;
+        }
+
+        // ============ OPEN HTML FULL SCREEN ============
+        async function openHTMLFullscreen(docId) {
+            try {
+                const doc = await db.collection('files').doc(docId).get();
+                if (!doc.exists) return;
+                const file = doc.data();
+                
+                // Fetch the HTML content
+                const response = await fetch(file.downloadURL);
+                const htmlContent = await response.text();
+                
+                // Create blob and open in new tab full screen
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const blobUrl = URL.createObjectURL(blob);
+                const newTab = window.open(blobUrl, '_blank');
+                
+                if (newTab) {
+                    newTab.addEventListener('load', () => {
+                        setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+                    });
+                }
+            } catch (err) {
+                console.error('Error opening HTML:', err);
+                window.open(file.downloadURL, '_blank');
+            }
+        }
+
+        // ============ OPEN PDF FULL SCREEN ============
+        async function openPDFFullscreen(docId) {
+            try {
+                const doc = await db.collection('files').doc(docId).get();
+                if (!doc.exists) return;
+                const file = doc.data();
+                
+                // PDF directly opens in browser's built-in PDF viewer (full screen)
+                // Browser's PDF viewer has built-in download button
+                window.open(file.downloadURL, '_blank');
+            } catch (err) {
+                console.error('Error opening PDF:', err);
+            }
+        }
+
+        // ============ UTILS ============
+        function removeExtension(filename) {
+            if (!filename) return '';
+            return filename.replace(/\.(html|htm|pdf)$/i, '');
+        }
+
+        function formatSize(bytes) {
+            if (!bytes) return '0 B';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        console.log('🚀 Actv Study Ready!');
+        console.log('🎯 NEET | JEE | CBSE Boards 2027');
+        console.log('🟢 Interactive Sessions → Full Screen New Tab');
+        console.log('📕 PDF Notes → Full Screen View + Download');
+    </script>
+</body>
+</html>
